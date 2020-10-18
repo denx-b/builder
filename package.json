@@ -1,0 +1,52 @@
+{
+  "name": "legancy",
+  "description": "",
+  "author": "Denis Bogdanov",
+  "version": "1.0.0",
+  "license": "ISC",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development gulp start",
+    "build": "cross-env NODE_ENV=production gulp build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.scss": [
+      "stylelint --fix scss",
+      "stylelint --syntax scss",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "browser-sync": "^2.26.12",
+    "cross-env": "^7.0.2",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-changed": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-html-beautify": "^1.0.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-svgstore": "^7.0.1",
+    "gulp-twig": "^1.2.0",
+    "gulp-uglify": "^3.0.2",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.2",
+    "node-normalize-scss": "^8.0.0",
+    "run-sequence": "^2.2.1",
+    "stylelint": "^13.7.2"
+  }
+}

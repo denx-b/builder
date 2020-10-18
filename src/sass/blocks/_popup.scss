@@ -1,0 +1,157 @@
+.popup {
+  display: flex;
+  opacity: 0;
+  z-index: -1;
+  justify-content: center;
+  overflow-y: scroll;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: background 0.2s ease-out;
+
+  // показываем
+  &_open {
+    opacity: 1;
+    z-index: 1100;
+  }
+
+  // анимируем
+  &_hide {
+    opacity: 1;
+    z-index: 1100;
+    background: rgba(30, 30, 30, 0);
+
+    .popup__content-wrap {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+  }
+
+  &_open {
+    background: rgba(30, 30, 30, 1);
+
+    .popup__content-wrap {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.popup__wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.popup__content-wrap {
+  padding: 65px 0 16px;
+  color: black;
+  flex: none;
+  overflow: hidden;
+  background-color: $color-dark;
+  border-bottom: 2px solid $color-fuxia;
+  transition: all 0.2s ease-out;
+  transform: translateY(-30px);
+  opacity: 0;
+}
+
+.popup__title {
+  font-size: 16px;
+  line-height: 22px;
+  color: $color-gray;
+
+  width: 100%;
+  max-width: calc(288px + 32px);
+  padding: 0 16px;
+  margin: 16px auto 23px auto;
+}
+
+.popup__logo-fixed {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  z-index: 1;
+}
+
+.popup__close {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 32px;
+  height: 32px;
+  z-index: 16;
+  transition: 0.1s ease-out;
+
+  &:hover span {
+    background-color: $color-fuxia;
+  }
+
+  &_1,
+  &_2 {
+    pointer-events: none;
+    display: inline-block;
+    width: 16px;
+    height: 3px;
+    background: white;
+    position: absolute;
+    right: 0;
+    top: 6px;
+  }
+
+  &_1 {
+    transform: rotate(-45deg);
+  }
+
+  &_2 {
+    transform: rotate(45deg);
+  }
+}
+
+@media (min-width: 500px) {
+  .popup__wrap {
+    margin: 160px 0 60px;
+    width: initial;
+    max-width: 620px;
+  }
+
+  .popup__content-wrap {
+    flex-grow: 0;
+    padding: 0 32px;
+    margin-bottom: 20px;
+  }
+
+  .popup__logo-fixed {
+    display: none;
+  }
+
+  .popup .login-form {
+    width: 402px;
+  }
+
+  .popup__title {
+    text-align: center;
+    margin: 41px auto 24px;
+    font-size: 20px;
+  }
+
+  .popup__close {
+    position: fixed;
+    right: 58px;
+    top: 40px;
+    cursor: pointer;
+
+    &_1,
+    &_2 {
+      width: 32px;
+      top: 14px;
+    }
+  }
+}
+
+@media (min-width: $tablet-width + 1px) {
+  .popup_open {
+    background: rgba(30, 30, 30, 0.8);
+  }
+}

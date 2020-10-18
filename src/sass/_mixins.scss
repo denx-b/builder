@@ -1,0 +1,47 @@
+@mixin list-reset() {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Define vertical, horizontal, or both position
+@mixin center($position) {
+  position: absolute;
+
+  @if $position == "vertical" {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @else if $position == "horizontal" {
+    left: 50%;
+    transform: translate(-50%);
+  }
+
+  @else if $position == "both" {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/*
+.foo {
+  @include center(both);
+}
+.foo-parent {
+  position: relative;
+}*/
+
+// External fonts
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    font-display: fallback;
+    src: url($file-name + ".eot");
+    src: url($file-name + ".woff") format("woff"),
+      url($file-name + ".ttf") format("truetype");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}

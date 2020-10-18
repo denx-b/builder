@@ -1,0 +1,31 @@
+.scroll-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: $color-dark;
+  position: fixed;
+  top: calc(50% - 50px);
+  left: 0;
+  z-index: 190;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+  cursor: pointer;
+
+  &_show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  svg {
+    transform: rotate(-90deg);
+  }
+}
+
+@media (max-width: $desktop-width + 170px) {
+  .scroll-top {
+    display: none;
+  }
+}
