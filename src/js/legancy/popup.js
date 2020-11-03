@@ -5,7 +5,10 @@
         display: 'block',
         data: {},
         paddingRightElements: [],
-        title: 'Окно'
+        title: 'Окно',
+        onAfterAppend: null,
+        onAfterOpen: null,
+        onAfterClose: null,
       }
 
   /**
@@ -109,6 +112,9 @@
         result => {
           elem.insertAdjacentHTML('beforeend', result)
           document.body.appendChild(wrap)
+          if (typeof params.onAfterAppend === 'function') {
+            params.onAfterAppend(wrap);
+          }
         },
         error => {
           elem.insertAdjacentHTML('afterBegin', 'Something went wrong')
@@ -126,6 +132,9 @@
       open() {
         !closing && wrap.classList.add('popup_open')
         setPadding(getScrollBarWidth() + 'px')
+        if (typeof params.onAfterOpen === 'function') {
+          params.onAfterOpen(wrap);
+        }
       },
       close() {
         closing = true
@@ -136,6 +145,9 @@
           setPadding(0)
           closing = false
         }, ANIMATION_SPEED)
+        if (typeof params.onAfterClose === 'function') {
+          params.onAfterClose(wrap);
+        }
       }
     }
 
