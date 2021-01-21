@@ -125,6 +125,12 @@
     let closing = false
     const ANIMATION_SPEED = 200
 
+    const escClickHandler = (evt) => {
+      if (evt.keyCode === 27) {
+        methods.close();
+      }
+    }
+
     /**
      * @type {{close(): void, open(): void}}
      */
@@ -132,6 +138,7 @@
       open() {
         !closing && wrap.classList.add('popup_open')
         setPadding(getScrollBarWidth() + 'px')
+        document.addEventListener('keydown', escClickHandler);
         if (typeof params.onAfterOpen === 'function') {
           params.onAfterOpen(wrap);
         }
@@ -143,6 +150,7 @@
         setTimeout(() => {
           wrap.classList.remove('popup_hide')
           setPadding(0)
+          document.removeEventListener('keydown', escClickHandler);
           closing = false
         }, ANIMATION_SPEED)
         if (typeof params.onAfterClose === 'function') {
