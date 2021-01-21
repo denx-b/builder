@@ -12,5 +12,8 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "quotes":  ["error", "double"],
+        "space-before-blocks": ["error", "always"],
+        "object-curly-newline": ["error", "always"]
     }
 }
