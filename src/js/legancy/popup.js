@@ -1,15 +1,15 @@
 ;(function (window) {
   let options = {},
-      defaultOptions = {
-        cache: true, // сохранять ли кеш запроса
-        display: 'block',
-        data: {},
-        paddingRightElements: [],
-        title: 'Окно',
-        onAfterAppend: null,
-        onAfterOpen: null,
-        onAfterClose: null,
-      }
+    defaultOptions = {
+      cache: true, // сохранять ли кеш запроса
+      display: 'block',
+      data: {},
+      paddingRightElements: [],
+      title: 'Окно',
+      onAfterAppend: null,
+      onAfterOpen: null,
+      onAfterClose: null,
+    }
 
   /**
    * Создаёт обёртку попапа
@@ -32,7 +32,7 @@
    * Установка паддингов, чтобы элементы не прыгали при скрытии скрола у body
    * @param padding
    */
-  let setPadding = padding => {
+  let setPadding = (padding) => {
     window.document.body.style.overflowY = padding ? 'hidden' : 'scroll'
     window.document.body.style.paddingRight = padding
 
@@ -42,7 +42,7 @@
 
     for (let i in options.paddingRightElements) {
       let selector = options.paddingRightElements[i],
-          nodeList = document.querySelectorAll(selector)
+        nodeList = document.querySelectorAll(selector)
 
       if (!nodeList.length) {
         continue
@@ -65,20 +65,19 @@
    * @param params
    * @returns {{close(): void, open(): void}}
    */
-  window.legancyPopup = params => {
+  window.legancyPopup = (params) => {
     params = typeof params === 'object' ? params : {}
     options = Object.assign({}, defaultOptions, params)
 
     let promise,
-        content = options.content,
-        wrap = createWrap()
+      content = options.content,
+      wrap = createWrap()
 
     if (typeof content === 'string') {
       if (content.indexOf('/') >= 0 || options.ajax === true) {
-        promise = fetch(content)
-        .then(
-            value => value.ok ? value.text() : '404 Not found',
-            error => 'Check your internet connection'
+        promise = fetch(content).then(
+          (value) => (value.ok ? value.text() : '404 Not found'),
+          (error) => 'Check your internet connection'
         )
       } else {
         promise = new Promise((resolve, reject) => {
@@ -91,11 +90,11 @@
         })
       }
     } else if (BX.type.isElementNode(content)) {
-      promise = new Promise(resolve => {
+      promise = new Promise((resolve) => {
         resolve(content.innerHTML)
       })
     } else {
-      promise = new Promise(resolve => {
+      promise = new Promise((resolve) => {
         resolve('Content Type Not Supported')
       })
     }
@@ -109,17 +108,17 @@
     }
 
     promise.then(
-        result => {
-          elem.insertAdjacentHTML('beforeend', result)
-          document.body.appendChild(wrap)
-          if (typeof params.onAfterAppend === 'function') {
-            params.onAfterAppend(wrap);
-          }
-        },
-        error => {
-          elem.insertAdjacentHTML('afterBegin', 'Something went wrong')
-          console.log(error)
+      (result) => {
+        elem.insertAdjacentHTML('beforeend', result)
+        document.body.appendChild(wrap)
+        if (typeof params.onAfterAppend === 'function') {
+          params.onAfterAppend(wrap)
         }
+      },
+      (error) => {
+        elem.insertAdjacentHTML('afterBegin', 'Something went wrong')
+        console.log(error)
+      }
     )
 
     let closing = false
@@ -127,7 +126,7 @@
 
     const escClickHandler = (evt) => {
       if (evt.keyCode === 27) {
-        methods.close();
+        methods.close()
       }
     }
 
@@ -138,9 +137,9 @@
       open() {
         !closing && wrap.classList.add('popup_open')
         setPadding(getScrollBarWidth() + 'px')
-        document.addEventListener('keydown', escClickHandler);
+        document.addEventListener('keydown', escClickHandler)
         if (typeof params.onAfterOpen === 'function') {
-          params.onAfterOpen(wrap);
+          params.onAfterOpen(wrap)
         }
       },
       close() {
@@ -150,16 +149,16 @@
         setTimeout(() => {
           wrap.classList.remove('popup_hide')
           setPadding(0)
-          document.removeEventListener('keydown', escClickHandler);
+          document.removeEventListener('keydown', escClickHandler)
           closing = false
         }, ANIMATION_SPEED)
         if (typeof params.onAfterClose === 'function') {
-          params.onAfterClose(wrap);
+          params.onAfterClose(wrap)
         }
-      }
+      },
     }
 
-    wrap.addEventListener('click', ev => {
+    wrap.addEventListener('click', (ev) => {
       if (ev.target.dataset.close) {
         methods.close()
       }
@@ -174,8 +173,8 @@
    *
    * @param params
    */
-  window.legancyPopupInit = params => {
+  window.legancyPopupInit = (params) => {
     params = typeof params === 'object' ? params : {}
     defaultOptions = Object.assign({}, defaultOptions, params)
   }
-}(window))
+})(window)

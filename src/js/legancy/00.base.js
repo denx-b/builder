@@ -1,2 +1,2 @@
-let legancy = {};
+let legancy = {}
 window.legancy = legancy
