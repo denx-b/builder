@@ -12,9 +12,24 @@ const twig = require('gulp-twig')
 const changed = require('gulp-changed')
 const htmlBeautify = require('gulp-html-beautify')
 
+//webpack
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+
 // const
 const browserSync = require('browser-sync').create()
 const templatePath = './public'
+
+gulp.task("vue", function () {
+  // При работе с vue удалить return 
+  return new Promise(function(resolve) {
+    resolve();
+  });
+
+  return gulp.src("./src/vue/index.js")
+    .pipe(webpackStream(require('./webpack.config'), webpack))
+    .pipe(gulp.dest(templatePath + '/assets/js'));
+});
 
 gulp.task('html', () => {
   return gulp.src('./src/*.twig')
@@ -76,6 +91,7 @@ gulp.task('serve', () => {
   gulp.watch('./src/sass/**/*.scss', gulp.series('styles'))
   gulp.watch('./src/**/*.twig', gulp.series('html', 'reload'))
   gulp.watch(['./src/js/**/*.js', '!./src/js/**/*.min.js'], gulp.series('scripts', 'reload'))
+  gulp.watch("src/vue/**/*.{js,vue}", gulp.series("vue", "reload"));
 })
 
 gulp.task('reload', done => {
@@ -89,6 +105,7 @@ gulp.task('build', gulp.series(
     'images',
     'styles',
     'scripts',
+    'vue',
     'html',
 ))
 
@@ -97,6 +114,7 @@ gulp.task('start', gulp.series(
     'copy',
     'styles',
     'scripts',
+    'vue',
     'html',
     'serve',
 ))

@@ -1,4 +1,4 @@
-/publick
+/public
 /src/js/polyfill/**/*.js
 /src/js/vendor/**/*.js
 /*.js
