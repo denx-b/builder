@@ -21,5 +21,5 @@ let getScrollBarWidth = () => {
 
   document.body.removeChild(outer)
 
-  return (w1 - w2)
+  return w1 - w2
 }

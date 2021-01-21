@@ -1,4 +1,4 @@
-let createElementFromHTML = htmlString => {
+let createElementFromHTML = (htmlString) => {
   let div = document.createElement('div')
   div.innerHTML = htmlString.trim()
 
