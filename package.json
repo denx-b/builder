@@ -9,6 +9,8 @@
     "start": "cross-env NODE_ENV=development gulp start",
     "build": "cross-env NODE_ENV=production gulp build",
     "eslint": "eslint src/"
+    "lint-fix": "stylelint --fix scss ./src/**/*.scss",
+    "lint-check": "stylelint --syntax scss ./src/**/*.scss"
   },
   "husky": {
     "hooks": {
@@ -22,7 +24,6 @@
       "git add"
     ],
     "**/*.scss": [
-      "stylelint --fix scss",
       "stylelint --syntax scss",
       "git add"
     ]
