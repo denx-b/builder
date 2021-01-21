@@ -2,6 +2,9 @@
   "ignoreFiles": [
     "src/sass/vendor/**/*.scss"
   ],
+  {
+    "extends": ["stylelint-prettier/recommended"]
+  }
   "rules": {
     "color-hex-case": "lower",
     "color-hex-length": "long",

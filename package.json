@@ -7,7 +7,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp start",
-    "build": "cross-env NODE_ENV=production gulp build"
+    "build": "cross-env NODE_ENV=production gulp build",
+    "eslint": "node_modules/.bin/eslint src/"
   },
   "husky": {
     "hooks": {
@@ -15,6 +16,11 @@
     }
   },
   "lint-staged": {
+    "*.{js}": [
+      "node_modules/.bin/eslint --max-warnings=0",
+      "prettier --write",
+      "git add"
+    ],
     "**/*.scss": [
       "stylelint --fix scss",
       "stylelint --syntax scss",
@@ -27,6 +33,10 @@
     "browser-sync": "^2.26.12",
     "cross-env": "^7.0.2",
     "del": "^6.0.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^8.0.0",
@@ -46,7 +56,9 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "node-normalize-scss": "^8.0.0",
+    "prettier": "2.2.1",
     "run-sequence": "^2.2.1",
-    "stylelint": "^13.7.2"
+    "stylelint": "^13.7.2",
+    "stylelint-config-prettier": "^8.0.2"
   }
 }
