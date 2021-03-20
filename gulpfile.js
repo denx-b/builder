@@ -13,55 +13,60 @@ const changed = require('gulp-changed')
 const htmlBeautify = require('gulp-html-beautify')
 
 //webpack
-const webpack = require('webpack');
-const webpackStream = require('webpack-stream');
+const webpack = require('webpack')
+const webpackStream = require('webpack-stream')
 
 // const
 const browserSync = require('browser-sync').create()
 const templatePath = './public'
 
-gulp.task("vue", function () {
+gulp.task('vue', function() {
   // При работе с vue удалить return 
   return new Promise(function(resolve) {
-    resolve();
-  });
+    resolve()
+  })
 
-  return gulp.src("./src/vue/index.js")
+  return gulp.src('./src/vue/index.js')
     .pipe(webpackStream(require('./webpack.config'), webpack))
-    .pipe(gulp.dest(templatePath + '/assets/js'));
-});
+    .pipe(gulp.dest(templatePath + '/assets/js'))
+})
+
+gulp.task('json', () => {
+  return gulp.src('./src/**/*.{json,json5}')
+    .pipe(gulp.dest(templatePath + '/assets/json'))
+})
 
 gulp.task('html', () => {
   return gulp.src('./src/*.twig')
-  .pipe(plumber())
-  .pipe(changed('./src/*.twig'))
-  .pipe(twig())
-  .pipe(htmlBeautify({indentSize: 4}))
-  .pipe(gulp.dest(templatePath))
+    .pipe(plumber())
+    .pipe(changed('./src/*.twig'))
+    .pipe(twig())
+    .pipe(htmlBeautify({ indentSize: 4 }))
+    .pipe(gulp.dest(templatePath))
 })
 
 gulp.task('images', () => {
   return gulp
-  .src(['./src/images/**/*.{png,jpg,jpeg,webp,svg,ico}'])
-  .pipe(
+    .src(['./src/images/**/*.{png,jpg,jpeg,webp,svg,ico}'])
+    .pipe(
       imageMin([
-        imageMin.optipng({optimizationLevel: 3}),
-        imageMin.mozjpeg({quality: 75, progressive: true}),
+        imageMin.optipng({ optimizationLevel: 3 }),
+        imageMin.mozjpeg({ quality: 75, progressive: true }),
         imageMin.svgo()
       ])
-  )
-  .pipe(gulp.dest(templatePath + '/assets/images'))
+    )
+    .pipe(gulp.dest(templatePath + '/assets/images'))
 })
 
 gulp.task('copy', () => {
   return gulp
-  .src([
-    './src/**/*.{eot,ttf,woff,woff2,png,jpg,jpeg,webp,svg,ico}',
-    './src/js/vendor/**/*.js',
-  ], {
-    base: 'src'
-  })
-  .pipe(gulp.dest(templatePath + '/assets'))
+    .src([
+      './src/**/*.{eot,ttf,woff,woff2,png,jpg,jpeg,webp,svg,ico}',
+      './src/js/vendor/**/*.js'
+    ], {
+      base: 'src'
+    })
+    .pipe(gulp.dest(templatePath + '/assets'))
 })
 
 gulp.task('styles', () => {
@@ -81,17 +86,18 @@ gulp.task('scripts', () => {
 })
 
 gulp.task('clean', () => {
-  return del(templatePath);
+  return del(templatePath)
 })
 
 gulp.task('serve', () => {
   browserSync.init({
     server: templatePath
   })
+  gulp.watch('./src/**/*.{json,json5}', gulp.series('json'))
   gulp.watch('./src/sass/**/*.scss', gulp.series('styles'))
   gulp.watch('./src/**/*.twig', gulp.series('html', 'reload'))
   gulp.watch(['./src/js/**/*.js', '!./src/js/**/*.min.js'], gulp.series('scripts', 'reload'))
-  gulp.watch("src/vue/**/*.{js,vue}", gulp.series("vue", "reload"));
+  gulp.watch('src/vue/**/*.{js,vue}', gulp.series('vue', 'reload'))
 })
 
 gulp.task('reload', done => {
@@ -100,21 +106,21 @@ gulp.task('reload', done => {
 })
 
 gulp.task('build', gulp.series(
-    'clean',
-    'copy',
-    'images',
-    'styles',
-    'scripts',
-    'vue',
-    'html',
+  'clean',
+  'copy',
+  'images',
+  'styles',
+  'scripts',
+  'vue',
+  'html'
 ))
 
 gulp.task('start', gulp.series(
-    'clean',
-    'copy',
-    'styles',
-    'scripts',
-    'vue',
-    'html',
-    'serve',
+  'clean',
+  'copy',
+  'styles',
+  'scripts',
+  'vue',
+  'html',
+  'serve'
 ))
