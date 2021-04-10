@@ -11,7 +11,8 @@ module.exports = (src, templatePath, browserSync) => {
   .pipe(plumber())
   .pipe(babel({
     ignore: ['./src/js/polyfill/*.js'],
-    presets: ['@babel/env']
+    presets: ['@babel/env'],
+    plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-proposal-private-methods']
   }))
   .pipe(concat('build.js'))
   .pipe(gulp.dest(templatePath + '/js/'))

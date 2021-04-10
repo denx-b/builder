@@ -68,5 +68,9 @@
     "vue-template-compiler": "^2.6.12",
     "webpack": "^5.16.0",
     "webpack-stream": "^6.1.1"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-private-methods": "^7.13.0"
   }
 }
