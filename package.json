@@ -8,6 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp start",
     "build": "cross-env NODE_ENV=production gulp build",
+    "eslint": "eslint src/",
     "lint-fix": "stylelint --fix scss ./src/**/*.scss",
     "lint-check": "stylelint --syntax scss ./src/**/*.scss"
   },
@@ -17,6 +18,11 @@
     }
   },
   "lint-staged": {
+    "*.{js}": [
+      "eslint --max-warnings=0",
+      "prettier --write",
+      "git add"
+    ],
     "**/*.scss": [
       "stylelint --syntax scss",
       "git add"
@@ -24,10 +30,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-export-default-from": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.2.2",
     "browser-sync": "^2.26.12",
+    "cache-loader": "^4.1.0",
     "cross-env": "^7.0.2",
     "del": "^6.0.0",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^8.0.0",
@@ -47,7 +59,20 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "node-normalize-scss": "^8.0.0",
+    "prettier": "2.2.1",
     "run-sequence": "^2.2.1",
-    "stylelint": "^13.7.2"
+    "stylelint": "^13.7.2",
+    "stylelint-config-prettier": "^8.0.2",
+    "vue-loader": "^15.9.6",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^5.16.0",
+    "webpack-stream": "^6.1.1"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-private-methods": "^7.13.0",
+    "gulp-sourcemap": "^1.0.1",
+    "gulp-tap": "^2.0.0"
   }
 }
