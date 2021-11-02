@@ -47,6 +47,7 @@
   BX.ajax = function () {}
   BX.showWait = function () {}
   BX.closeWait = function () {}
+  BX.message = function () {}
 
   window.BX = BX
 })(window)
